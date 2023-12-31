@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+}
+
+model Member {
+  id      String   @id
+  slug    String   @unique
+  nama    String
+  image   String
+  kelas   String
+  gender  Gender
+  jabatan Jabatan  @default(Anggota)
+  divisi  Divisi[]
+}
+
+model Divisi {
+  id       Int        @id @default(autoincrement())
+  memberId String
+  member   Member     @relation(fields: [memberId], references: [slug])
+  divisi   EnumDivisi
+}
+
+enum EnumDivisi {
+  Cameraman
+  Fotografer
+  Reporter
+  Tim_Kreatif
+  Editor
+}
+
+enum Gender {
+  Laki_Laki
+  Perempuan
+}
+
+enum Jabatan {
+  Ketua
+  Wakil_Ketua
+  Sekertaris
+  Bendahara
+  Anggota
+}
