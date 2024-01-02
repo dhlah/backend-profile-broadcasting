@@ -11,6 +11,13 @@ const PORT = 3001;
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  return res.status(200).json({
+    status: 200,
+    message: "OK",
+  });
+})
+
 app.get("/member", async (req, res) => {
   const data = await prisma.member.findMany({
     select: {
