@@ -7,7 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = 3001;
-
+const whitelist = [
+  '*'
+];
 app.use((req, res, next) => {
   const origin = req.get('referer');
   const isWhitelisted = whitelist.find((w) => origin && origin.includes(w));
