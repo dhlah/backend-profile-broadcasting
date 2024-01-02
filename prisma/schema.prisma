@@ -3,20 +3,21 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Member {
-  id      String   @id
-  slug    String   @unique
-  nama    String
-  image   String
-  kelas   String
-  gender  Gender
-  jabatan Jabatan  @default(Anggota)
-  divisi  Divisi[]
+  id        String   @id
+  slug      String   @unique
+  nama      String
+  image     String
+  kelas     String
+  gender    Gender
+  jabatan   Jabatan  @default(Anggota)
+  prioritas Int
+  divisi    Divisi[]
 }
 
 model Divisi {
@@ -24,6 +25,14 @@ model Divisi {
   memberId String
   member   Member     @relation(fields: [memberId], references: [slug])
   divisi   EnumDivisi
+}
+
+model Register {
+  id     String     @id
+  nama   String
+  gender Gender
+  kelas  String
+  divisi EnumDivisi
 }
 
 enum EnumDivisi {
