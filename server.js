@@ -87,6 +87,7 @@ app.get("/member/:slug", async (req, res) => {
         slug: memberData.slug,
         nama: memberData.nama,
         kelas: memberData.kelas,
+        image: memberData.image,
         gender: memberData.gender,
         jabatan: memberData.jabatan,
         divisi: memberDivisi,
